@@ -1,0 +1,76 @@
+/* 3D Animated Background */
+@keyframes animatedBackground {
+    0% {
+      background-position: 0% 0%;
+      transform: perspective(1000px) rotateX(15deg) rotateY(-15deg);
+    }
+    25% {
+      background-position: 25% 50%;
+      transform: perspective(1000px) rotateX(-10deg) rotateY(10deg);
+    }
+    50% {
+      background-position: 50% 100%;
+      transform: perspective(1000px) rotateX(15deg) rotateY(15deg);
+    }
+    75% {
+      background-position: 75% 50%;
+      transform: perspective(1000px) rotateX(-10deg) rotateY(-10deg);
+    }
+    100% {
+      background-position: 100% 0%;
+      transform: perspective(1000px) rotateX(10deg) rotateY(10deg);
+    }
+  }
+  
+  .home-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #ff5733, #ffcc33, #33ff57, #33a1ff, #a133ff);
+    background-size: 300% 300%;
+    animation: animatedBackground 8s infinite linear alternate-reverse;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  /* Floating 3D Dots */
+  .home-container::before,
+  .home-container::after {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: floatingDots 10s infinite ease-in-out alternate;
+  }
+  
+  .home-container::before {
+    top: 10%;
+    left: 15%;
+    animation-delay: 1s;
+  }
+  
+  .home-container::after {
+    bottom: 10%;
+    right: 15%;
+    animation-delay: 3s;
+  }
+  
+  /* Floating Dots Animation */
+  @keyframes floatingDots {
+    0% {
+      transform: translateY(0px) scale(1);
+    }
+    50% {
+      transform: translateY(-30px) scale(1.2);
+    }
+    100% {
+      transform: translateY(0px) scale(1);
+    }
+  }
+  

@@ -1,0 +1,168 @@
+/* Navbar Container */
+.navbar {
+  background: linear-gradient(45deg, #ff5733, #ffcc33, #33ff57, #33a1ff, #a133ff);
+  background-size: 500% 500%;
+  animation: navbarBgAnimation 8s infinite alternate ease-in-out;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+/* Background Animation */
+@keyframes navbarBgAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 25% 50%;
+  }
+  50% {
+    background-position: 50% 50%;
+  }
+  75% {
+    background-position: 75% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Navbar Inner Container */
+.navbar__container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo Styling */
+.navbar__logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+
+/* Navigation Menu */
+.navbar__menu {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar__menu li {
+  margin: 0 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.navbar__menu li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar__menu li a:hover {
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0px 3px 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Sign Out Button Styling */
+.navbar__signout {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 1rem;
+  padding: 8px 15px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navbar__signout:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Hamburger Menu (Mobile) */
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.navbar__toggle-bar {
+  width: 30px;
+  height: 4px;
+  background-color: #fff;
+  margin: 5px 0;
+  transition: 0.4s;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar__menu {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(45deg, #ff5733, #ffcc33, #33ff57, #33a1ff, #a133ff);
+    background-size: 500% 500%;
+    animation: navbarBgAnimation 8s infinite alternate ease-in-out;
+    flex-direction: column;
+    align-items: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+  }
+
+  .navbar__menu.active {
+    max-height: 300px;
+    padding: 10px 0;
+    transition: max-height 0.5s ease-in;
+  }
+
+  .navbar__menu ul {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar__menu li {
+    width: 100%;
+    text-align: center;
+    margin: 8px 0;
+  }
+
+  .navbar__menu li a {
+    display: block;
+    width: 100%;
+    padding: 12px;
+  }
+
+  .navbar__toggle {
+    display: flex;
+  }
+}

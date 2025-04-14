@@ -1,0 +1,80 @@
+.payment-container {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  min-height: 100vh;
+}
+
+.payment-header {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #28a745;
+}
+
+.bill {
+  margin-bottom: 2rem;
+}
+
+.bill-header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.6rem;
+  border-radius: 8px 8px 0 0;
+}
+
+.bill-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  color: #ddd;
+}
+
+.bill-table th,
+.bill-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.bill-table th {
+  background-color: #2c2c2c;
+}
+
+.bill-table tr:nth-child(even) {
+  background-color: #292929;
+}
+
+.total-row {
+  font-weight: bold;
+  background-color: #2c2c2c;
+  color: #fff;
+}
+
+.payment-actions {
+  text-align: center;
+}
+
+.payment-note {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #aaa;
+}
+
+.payment-button {
+  background-color: #28a745;
+  color: #1e1e1e;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.payment-button:hover {
+  background-color: #218838;
+}
