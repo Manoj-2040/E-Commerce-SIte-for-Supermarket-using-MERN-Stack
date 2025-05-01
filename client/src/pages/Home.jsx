@@ -19,7 +19,7 @@ const Home = () => {
   // Fetch store products from the backend
   const fetchStoreProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/products");
+      const response = await axios.get("https://recommender-algorithm-model.onrender.com/api/products");
       setStoreProducts(response.data);
     } catch (err) {
       console.error("Error fetching store products:", err);
