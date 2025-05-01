@@ -204,6 +204,7 @@ const Home = () => {
       </Carousel>
       <br />
       <br />
+      
       {/* Search Mode Toggle */}
       <div style={{ textAlign: "center", marginBottom: "20px" }}>
         <button

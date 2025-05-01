@@ -3,6 +3,8 @@ import api from "../api";
 import { useUser } from "@clerk/clerk-react";
 import { Navigate } from "react-router-dom";
 import jsPDF from "jspdf";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 import "jspdf-autotable";
 import "./Admin.css"; // Import dedicated Admin styling
 
@@ -157,12 +159,8 @@ const Admin = () => {
   };
 
   // Generate PDF Report from orders data with order item names
-  const generatePDFReport = () => {
-    const doc = new jsPDF();
+  const generateExcelReport = () => {
     const title = "NMART Orders Report";
-
-    doc.setFontSize(18);
-    doc.text(title, 14, 15);
 
     const tableColumn = [
       "Order ID",
@@ -171,9 +169,8 @@ const Admin = () => {
       "Total Items",
       "Items",
     ];
-    const tableRows = [];
 
-    orders.forEach((order) => {
+    const tableRows = orders.map((order) => {
       const paidStatus = order.isPaid ? "Paid" : "Not Paid";
       const paidTime = order.isPaid
         ? `\n${new Date(order.paidAt || order.createdAt).toLocaleString()}`
@@ -191,42 +188,42 @@ const Admin = () => {
         })
         .join("\n");
 
-      const orderData = [
-        order._id,
-        order.userId,
-        `${paidStatus}${paidTime}`,
-        `${totalItems}`,
-        itemsList,
-      ];
-
-      tableRows.push(orderData);
+      // Important: Format rows according to columns
+      return {
+        "Order ID": order._id,
+        "User ID": order.userId,
+        "Payment Status": `${paidStatus}${paidTime}`,
+        "Total Items": totalItems,
+        Items: itemsList,
+      };
     });
 
-    doc.autoTable({
-      head: [tableColumn],
-      body: tableRows,
-      startY: 25,
-      styles: {
-        halign: "center",
-        valign: "middle",
-        fontSize: 10,
-        cellPadding: 3,
-      },
-      columnStyles: {
-        0: { cellWidth: 35 },
-        1: { cellWidth: 35 },
-        2: { cellWidth: 40 },
-        3: { cellWidth: 20 },
-        4: { cellWidth: 60 },
-      },
-      headStyles: {
-        fillColor: [40, 167, 69],
-        textColor: 255,
-        fontStyle: "bold",
-      },
+    // Create a worksheet
+    const worksheet = XLSX.utils.json_to_sheet(tableRows, {
+      header: tableColumn,
     });
 
-    doc.save("NMART_Orders_Report.pdf");
+    // Optional: Adjust column widths (make it neat)
+    const wscols = [
+      { wch: 20 }, // Order ID
+      { wch: 20 }, // User ID
+      { wch: 30 }, // Payment Status
+      { wch: 15 }, // Total Items
+      { wch: 40 }, // Items
+    ];
+    worksheet["!cols"] = wscols;
+
+    // Create a workbook
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, title);
+
+    // Write and trigger download
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const data = new Blob([excelBuffer], { type: "application/octet-stream" });
+    saveAs(data, "NMART_Orders_Report.xlsx");
   };
 
   return (
@@ -392,7 +389,7 @@ const Admin = () => {
         <div className='admin-section' style={{ minHeight: "100vh" }}>
           <h3>All Orders</h3>
           <button
-            onClick={generatePDFReport}
+            onClick={generateExcelReport}
             style={{
               padding: "10px 20px",
               backgroundColor: "#28a745",
@@ -402,7 +399,7 @@ const Admin = () => {
               cursor: "pointer",
               marginBottom: "20px",
             }}>
-            Generate Report
+            Generate Excel Report
           </button>
           {orders.length === 0 ? (
             <p style={{ color: "#ccc" }}>No orders available.</p>

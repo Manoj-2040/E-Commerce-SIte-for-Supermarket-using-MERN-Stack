@@ -11,7 +11,7 @@ exports.createOrder = async (req, res) => {
     // Decrease stock of each product
     for (const item of orderItems) {
       const product = await Product.findById(item.product);
-      console.log("Product Found:", product);
+      // console.log("Product Found:", product);
       if (!product) continue;
 
       product.countInStock = Math.max(0, product.countInStock - item.qty); // Ensure it doesn't go negative
